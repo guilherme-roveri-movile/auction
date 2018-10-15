@@ -45,6 +45,7 @@ dependencies {
     implementation('com.fasterxml.jackson.module:jackson-module-kotlin')
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
+    compile(group: 'io.github.microutils', name: 'kotlin-logging', version: '1.6.10')
     testCompile('org.springframework.boot:spring-boot-starter-test') {
         exclude module: 'junit'
     }

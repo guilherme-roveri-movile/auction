@@ -6,7 +6,8 @@ import com.gbr.auction.fixtures.AuctionFixtures
 import com.gbr.auction.gateways.AuctionGateway
 import com.nhaarman.mockito_kotlin.times
 import com.nhaarman.mockito_kotlin.verify
-import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.Assertions.assertThrows
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.beans.factory.annotation.Autowired
@@ -26,7 +27,7 @@ class CreateAuctionTests(@Autowired val createAuction: CreateAuction) {
     @Test
     fun `constraints validation - all not null`() {
         //when
-        val exception = Assertions.assertThrows(BadDomainException::class.java) {
+        val exception = assertThrows(BadDomainException::class.java) {
             createAuction.execute(Auction())
         }
 
@@ -38,7 +39,7 @@ class CreateAuctionTests(@Autowired val createAuction: CreateAuction) {
                 "auction.product.notBlank"
         )
         //then
-        Assertions.assertTrue(
+        assertTrue(
                 exception.errors.containsAll(errors))
     }
 
@@ -48,11 +49,11 @@ class CreateAuctionTests(@Autowired val createAuction: CreateAuction) {
         val auction = AuctionFixtures.buildAnAuction()
         auction.startTime = LocalDateTime.now().minusHours(1)
         //when
-        val exception = Assertions.assertThrows(BadDomainException::class.java) {
+        val exception = assertThrows(BadDomainException::class.java) {
             createAuction.execute(auction)
         }
         //then
-        Assertions.assertTrue(
+        assertTrue(
                 exception.errors.contains("auction.startTime.invalid"))
     }
 
@@ -63,11 +64,11 @@ class CreateAuctionTests(@Autowired val createAuction: CreateAuction) {
         auction.startTime = LocalDateTime.now()
         auction.endTime = LocalDateTime.now().minusDays(1)
         //when
-        val exception = Assertions.assertThrows(BadDomainException::class.java) {
+        val exception = assertThrows(BadDomainException::class.java) {
             createAuction.execute(auction)
         }
         //then
-        Assertions.assertTrue(
+        assertTrue(
                 exception.errors.contains("auction.endTime.invalid"))
     }
 

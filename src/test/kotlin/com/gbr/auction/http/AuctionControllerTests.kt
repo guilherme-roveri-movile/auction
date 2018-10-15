@@ -1,5 +1,6 @@
 package com.gbr.auction.http
 
+import com.gbr.auction.exceptions.BadDomainException
 import com.gbr.auction.fixtures.AuctionFixtures
 import com.gbr.auction.usecases.CreateAuction
 import com.nhaarman.mockito_kotlin.any
@@ -36,6 +37,16 @@ class AuctionControllerTests(@Autowired val mockMvc: MockMvc) {
                 .andExpect(jsonPath("initialPrice").value(auction.initialPrice!!))
                 .andExpect(jsonPath("step").value(auction.step!!))
                 .andExpect(jsonPath("product").value(auction.product!!))
+    }
+
+    @Test
+    fun `try to create a new invalid auction`() {
+        val expectedError = "auction.product.notBlank"
+        whenever(createAuction.execute(any())).thenThrow(BadDomainException(setOf(expectedError)))
+        mockMvc.perform(post("/auctions").content(AuctionFixtures.buildInvalidAuctionJson()).accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest)
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(jsonPath("$.[0]").value(expectedError))
     }
 
 }

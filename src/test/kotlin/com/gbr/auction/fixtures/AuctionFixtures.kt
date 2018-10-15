@@ -25,4 +25,14 @@ object AuctionFixtures {
                 "  \"product\": \"${auction.product}\"\n" +
                 "}"
     }
+
+    fun buildInvalidAuctionJson(): String {
+        val auction = buildAnAuction()
+        return "{\n" +
+                "  \"startTime\": \"${auction.startTime!!.format(DateTimeFormatter.ISO_DATE_TIME)}\",\n" +
+                "  \"endTime\": \"${auction.endTime!!.format(DateTimeFormatter.ISO_DATE_TIME)}\",\n" +
+                "  \"initialPrice\": ${auction.initialPrice},\n" +
+                "  \"step\": ${auction.step},\n" +
+                "}"
+    }
 }
