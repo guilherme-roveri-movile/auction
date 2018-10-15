@@ -1,12 +1,13 @@
 package com.gbr.auction.gateways.mongo.docs
 
 import com.gbr.auction.domains.Bid
+import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
 import java.time.LocalDateTime
 
 @Document(collection = "auctions")
 data class AuctionMongo(
-        var id: String? = null,
+        @field:Id var id: String? = null,
         var startTime: LocalDateTime? = null,
         var endTime: LocalDateTime? = null,
         var initialPrice: Long? = null,
