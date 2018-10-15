@@ -8,9 +8,9 @@ import org.springframework.stereotype.Component
 import javax.validation.Validator
 
 @Component
-class CreateAuction(
-        @Autowired val validator: Validator,
-        @Autowired val gateway: AuctionGateway) {
+class CreateAuction @Autowired constructor(
+        val validator: Validator,
+        val gateway: AuctionGateway) {
 
     fun execute(auction: Auction): Auction {
         val result = validator.validate(auction)
