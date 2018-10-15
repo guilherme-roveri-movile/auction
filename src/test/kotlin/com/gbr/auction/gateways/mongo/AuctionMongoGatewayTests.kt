@@ -14,7 +14,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension
 
 @ExtendWith(SpringExtension::class)
 @SpringBootTest
-class AuctionMongoGatewayTests(@Autowired val gateway: AuctionGateway, @Autowired val mongoTemplate: MongoTemplate) {
+class AuctionMongoGatewayTests @Autowired constructor(val gateway: AuctionGateway, val mongoTemplate: MongoTemplate) {
 
     @BeforeEach
     fun setup() {
