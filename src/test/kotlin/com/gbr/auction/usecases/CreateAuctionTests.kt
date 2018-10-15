@@ -18,7 +18,7 @@ import java.time.LocalDateTime
 
 @ExtendWith(SpringExtension::class)
 @SpringBootTest
-class CreateAuctionTest(@Autowired val createAuction: CreateAuction) {
+class CreateAuctionTests(@Autowired val createAuction: CreateAuction) {
 
     @MockBean
     private lateinit var gateway: AuctionGateway

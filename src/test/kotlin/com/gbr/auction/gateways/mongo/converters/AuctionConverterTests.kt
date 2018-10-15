@@ -9,7 +9,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension
 
 @ExtendWith(SpringExtension::class)
 @SpringBootTest
-class AuctionConverterTest {
+class AuctionConverterTests {
 
     @Test
     fun `convert from auction to document`() {
