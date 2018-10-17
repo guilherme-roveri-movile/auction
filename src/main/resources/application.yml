@@ -1,0 +1,4 @@
+management.endpoints.web:
+  basePath: /
+  pathMappingHealth: health
+spring.application.name: auction

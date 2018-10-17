@@ -1,0 +1,48 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: auction
+    commit: @git.commit@
+  name: auction
+spec:
+  replicas: @deployment.replicas@
+  revisionHistoryLimit: 2
+  selector:
+    matchLabels:
+      app: auction
+  template:
+    metadata:
+      annotations:
+        timestamp: @timestamp@
+      labels:
+        app: auction
+        commit: @git.commit@
+    spec:
+      containers:
+      - name: auction
+        image: gbroveri/auction:@git.commit@
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+            scheme: HTTP
+          initialDelaySeconds: 180
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+            scheme: HTTP
+          initialDelaySeconds: 10
+        resources:
+          limits:
+            cpu: 500m
+            memory: 128Mi
+          requests:
+            cpu: 0.5
+            memory: 500Mi
+        securityContext:
+          privileged: false
+      serviceAccountName: auction
